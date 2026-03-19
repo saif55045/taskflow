@@ -1,0 +1,17 @@
+# Backend Service — ClusterIP (internal only)
+apiVersion: v1
+kind: Service
+metadata:
+  name: backend-service
+  labels:
+    app: taskflow
+    tier: backend
+spec:
+  type: ClusterIP
+  selector:
+    app: taskflow
+    tier: backend
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000

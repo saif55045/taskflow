@@ -1,0 +1,16 @@
+# Persistent Volume — 1Gi hostPath for local cluster
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: mongo-pv
+  labels:
+    type: local
+    app: taskflow
+spec:
+  capacity:
+    storage: 1Gi
+  accessModes:
+    - ReadWriteOnce
+  hostPath:
+    path: "/mnt/data/mongo"
+  persistentVolumeReclaimPolicy: Retain

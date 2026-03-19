@@ -1,0 +1,33 @@
+# Frontend Deployment — 3 Replicas
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: frontend-deployment
+  labels:
+    app: taskflow
+    tier: frontend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: taskflow
+      tier: frontend
+  template:
+    metadata:
+      labels:
+        app: taskflow
+        tier: frontend
+    spec:
+      containers:
+        - name: frontend
+          image: saif55045/taskflow-frontend
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "64Mi"
+            limits:
+              cpu: "250m"
+              memory: "128Mi"

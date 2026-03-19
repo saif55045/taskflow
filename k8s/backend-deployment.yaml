@@ -1,0 +1,38 @@
+# Backend Deployment — 3 Replicas
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend-deployment
+  labels:
+    app: taskflow
+    tier: backend
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: taskflow
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: taskflow
+        tier: backend
+    spec:
+      containers:
+        - name: backend
+          image: saif55045/taskflow-backend
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 5000
+          env:
+            - name: PORT
+              value: "5000"
+            - name: MONGO_URI
+              value: "mongodb://mongo-service:27017/taskmanager"
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "500m"
+              memory: "256Mi"
